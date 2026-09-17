@@ -38,7 +38,7 @@ The lockfile pins deployment dependencies. No Cloudflare token or login secret b
 2. Replace the temporary content and build script with the finished website. Keep `npm run build` working from the repository root and producing the complete website in `dist/`.
 3. Preserve `wrangler.jsonc`, especially Worker name `preacherman-ai`, asset output, and the two custom domains. Keep Wrangler in development dependencies and update the lockfile if dependencies change.
 4. The starter supports static HTML and static builds such as Vite. If the new design uses server rendering or a server backend, add the appropriate Cloudflare framework adapter before deploying; that is not provided by this placeholder.
-5. Preserve the www redirect from `public/_redirects` in the final output (or implement its equivalent).
+5. The www-to-apex redirect is managed in Cloudflare zone Redirect Rules, independently of the site's static files. Preserve that rule when changing infrastructure.
 6. Before the real launch, remove the temporary `noindex` directives from the HTML, `public/_headers`, and `public/robots.txt`. Add the finished site's canonical URLs and sitemap.
 7. Run `npm ci` and `npm run check`, review the generated output, then push to `main`. Verify the successful Cloudflare build and the live domain.
 
