@@ -1,0 +1,299 @@
+import fs from "node:fs";
+import path from "node:path";
+
+const runtimeRoot = path.resolve(
+  process.cwd(),
+  "apps/preacherman-demo-host/public/gallery-v3/portfolio",
+);
+
+if (!runtimeRoot.endsWith(path.join("public", "gallery-v3", "portfolio"))) {
+  throw new Error(`Unexpected runtime root: ${runtimeRoot}`);
+}
+
+function replaceExact(source, before, after, expectedCount, label) {
+  const actualCount = source.split(before).length - 1;
+  const patchedCount = source.split(after).length - 1;
+  if (patchedCount >= expectedCount) return source;
+  if (actualCount !== expectedCount) {
+    throw new Error(`${label}: expected ${expectedCount} occurrence(s), found ${actualCount}`);
+  }
+  return source.split(before).join(after);
+}
+
+const scenePath = path.join(runtimeRoot, "_nuxt", "D9b8F35K.js");
+let scene = fs.readFileSync(scenePath, "utf8");
+const taskDialogImport = 'import{installTaskCreateDialog}from"../task-create-dialog.js";';
+if (!scene.includes(taskDialogImport)) scene = taskDialogImport + "\n" + scene;
+// Profile optics stay intact; the template animal rain is no longer loaded or rendered.
+scene = scene.replaceAll("this.llamaRain?.tick(e,this.hole.p)", "this.llamaRain?.tick(e,this.taskCreateDialogOpen?0:this.hole.p)");
+scene = replaceExact(scene, "this.ballScan=0,this.llamaRain=null,this._rainStarted=!1,this.sky=null", "this.ballScan=0,this.sky=null", 1, "remove falling-animal state");
+scene = replaceExact(scene, "this.watchBall(),(window.requestIdleCallback?.bind(window)||(i=>setTimeout(i,3e3)))(()=>{this.llamaRain||this._rainStarted||(this._rainStarted=!0,lr(async()=>{const{Rain:i}=await import(\"./BNIAOxM5.js\");return{Rain:i}},[],import.meta.url).then(({Rain:i})=>{this.llamaRain=new i(this.core),this.llamaRain.ensure()}))})}watchBall()", "this.watchBall()}watchBall()", 1, "remove falling-animal idle preloader");
+scene = replaceExact(scene, "this.syncBall(e),this.hole.p>.01&&!this.llamaRain&&!this._rainStarted&&(this._rainStarted=!0,lr(async()=>{const{Rain:i}=await import(\"./BNIAOxM5.js\");return{Rain:i}},[],import.meta.url).then(({Rain:i})=>{this.llamaRain=new i(this.core)})),this.llamaRain?.tick(e,this.taskCreateDialogOpen?0:this.hole.p),this.rail.sync(e)", "this.syncBall(e),this.rail.sync(e)", 1, "remove falling-animal spawn and animation");
+scene = replaceExact(scene, "Ye(l)?\"\u5173\u95ed\":\"\u7b80\u4ecb\"", "Ye(l)?\"Close\":\"Preacherman\"", 1, "English profile toggle");
+scene = replaceExact(scene, "},\"\u90ae\u4ef6\",40,QF)", "},\"Email\",40,QF)", 1, "English profile email link");
+scene = replaceExact(scene, "zn(\"span\",eB,\"\u5df2\u590d\u5236\")", "zn(\"span\",eB,\"Copied\")", 1, "English profile copy feedback");
+scene = replaceExact(
+  scene,
+  'Fi(r,_=>{e.openHole(_),f(_)});const{close:p}',
+  'let taskDialog;Fi(r,_=>{e.openHole(_),taskDialog?.opened||f(_)});const{close:p}',
+  1,
+  "reuse the profile lens without profile copy for task creation",
+);
+scene = replaceExact(
+  scene,
+  'l.push(u),window.addEventListener("click",m)',
+  'l.push(u),taskDialog=installTaskCreateDialog({folio:e,profileOpen:r,disc:t.value,textGroups:l,watch:Fi}),window.addEventListener("click",m)',
+  1,
+  "install the empty task dialog in the authored profile",
+);
+scene = replaceExact(
+  scene,
+  'e.bindHole(null),window.removeEventListener("click",m)',
+  'taskDialog?.dispose(),e.bindHole(null),window.removeEventListener("click",m)',
+  1,
+  "dispose task dialog listeners with the profile",
+);
+scene = replaceExact(
+  scene,
+  "this.renderer.setClearColor(0,1),this.renderer.setPixelRatio",
+  "this.renderer.setClearColor(0,0),this.renderer.setPixelRatio",
+  1,
+  "transparent renderer clear",
+);
+scene = replaceExact(
+  scene,
+  "setClearAlpha(1)",
+  "setClearAlpha(0)",
+  3,
+  "transparent frame clears",
+);
+scene = replaceExact(
+  scene,
+  "this.core.scene.add(e,t),this.sky=e,this.ground=t",
+  "this.sky=e,this.ground=t",
+  1,
+  "remove backdrop and floor grid",
+);
+scene = replaceExact(
+  scene,
+  "this.renderer.setPixelRatio(Math.min(2,window.devicePixelRatio))",
+  "this.renderer.setPixelRatio(Math.min(1.25,window.devicePixelRatio))",
+  1,
+  "cap foreground renderer pixel ratio",
+);
+scene = scene
+  .replaceAll('"./models/award.glb"', '"/gallery-v3/portfolio/models/award.glb"')
+  .replaceAll(
+    '"./textures/manifest.json"',
+    '"/gallery-v3/portfolio/textures/manifest.json"',
+  )
+  .replaceAll(
+    'setTranscoderPath("./basis/")',
+    'setTranscoderPath("/gallery-v3/portfolio/basis/")',
+  );
+scene = replaceExact(
+  scene,
+  '"/models/award.glb"',
+  '"/gallery-v3/portfolio/models/award.glb"',
+  1,
+  "scope award model",
+);
+scene = replaceExact(
+  scene,
+  '"/textures/manifest.json"',
+  '"/gallery-v3/portfolio/textures/manifest.json"',
+  1,
+  "scope texture manifest",
+);
+scene = replaceExact(
+  scene,
+  'setTranscoderPath("/basis/")',
+  'setTranscoderPath("/gallery-v3/portfolio/basis/")',
+  1,
+  "scope basis transcoder",
+);
+// Editable Task DOM shares the authored card/text timeline, including route leave.
+scene = replaceExact(
+  scene,
+  '$o.to({},{duration:1},0),n.use($o)},onLeave(e,t){Ua?.(),Ua=t,Yc=e}',
+  '$o.to({},{duration:1},0),e.querySelector(".task-metadata")&&$o.fromTo(e,{"--task-content-opacity":0},{"--task-content-opacity":1,duration:n.c.title.dur,ease:"power2.out",overwrite:!0},x0.page.at),n.use($o)},onLeave(e,t){e.querySelector(".task-create")?.hidePopover(),e.querySelector(".task-metadata")&&(e.inert=!0,ve.to(e,{"--task-content-opacity":0,duration:Ff,ease:"power1.out",overwrite:!0})),Ua?.(),Ua=t,Yc=e}',
+  1,
+  "synchronize task DOM with authored card transitions",
+);
+fs.writeFileSync(scenePath, scene);
+
+// Append only the new caption, without replaying every existing title.
+scene = replaceExact(scene, 'async showTitles(e){', 'async showTitles(e,titlesOnly=!1){const titleStart=this.texts.length;', 1, "incremental task captions");
+scene = replaceExact(scene, 'this.slideIn(this.texts)}measureTitle', 'this.slideIn(titlesOnly?this.texts.slice(titleStart):this.texts)}measureTitle', 1, "reveal only appended task caption");
+scene = scene.replaceAll('taskDialog?.dispose(),taskDialog?.dispose(),', 'taskDialog?.dispose(),');
+fs.writeFileSync(scenePath, scene);
+
+const cardsPath = path.join(runtimeRoot, "_nuxt", "DxOxRmZ4.js");
+let cards = fs.readFileSync(cardsPath, "utf8");
+const railImport = 'import{installTaskCreateRail}from"../task-create-rail.js";';
+if (!cards.includes(railImport)) cards = railImport + "\n" + cards;
+cards = replaceExact(cards,
+  'b=t=>{if(!_(w))return;const a=c?.[t];a&&(s.t=s.a=(a.start+i.ww+a.end)/2-i.ww/2,o=t,p=i.ww,x(c,f,s.a,!0))}',
+  'b=(t,animate=!1,offset=0)=>{if(!_(w))return;const a=c?.[t];if(!a)return;const target=(a.start+i.ww+a.end)/2-i.ww/2-offset;animate?s.t=s.a+M.utils.wrap(-f/2,f/2,target-s.a):s.t=s.a=target;o=t,p=i.ww,x(c,f,s.a,!0)}',
+  1, "smooth horizontal task arrival");
+cards = replaceExact(cards,
+  'K({axis:z(()=>u.small?"y":"x")});const $=',
+  'K({axis:z(()=>u.small?"y":"x")});const disposeTaskRail=installTaskCreateRail({folio:e,projects:o,root:c,track:f,resize:u,nextTick:N,measureX:p,measureY:x,centerX:v,centerY:b,motion:M});L(disposeTaskRail);const $=',
+  1, "connect live task creation to mounted rail");
+fs.writeFileSync(cardsPath, cards);
+const scrollPath = path.join(runtimeRoot, "_nuxt", "CUxRtAWE.js");
+let scroll = fs.readFileSync(scrollPath, "utf8");
+scroll = replaceExact(scroll,
+  'A=a=>{if(!c(g))return;',
+  'A=(a,animate=!1,offset=0)=>{if(!c(g))return;',
+  1, "vertical task arrival options");
+scroll = replaceExact(scroll,
+  'M=a,k=u.height,e.t=e.c=L,m(!0)',
+  'L-=offset,M=a,k=u.height,animate?e.t=e.c+(c(w)?L-e.c:q.utils.wrap(-i/2,i/2,L-e.c)):e.t=e.c=L,m(!0)',
+  1, "smooth vertical task arrival");
+fs.writeFileSync(scrollPath, scroll);
+
+const rainPath = path.join(runtimeRoot, "_nuxt", "BNIAOxM5.js");
+let rain = fs.readFileSync(rainPath, "utf8");
+rain = rain.replaceAll(
+  '"./models/llama.glb"',
+  '"/gallery-v3/portfolio/models/llama.glb"',
+);
+rain = replaceExact(
+  rain,
+  '"/models/llama.glb"',
+  '"/gallery-v3/portfolio/models/llama.glb"',
+  1,
+  "scope llama model",
+);
+fs.writeFileSync(rainPath, rain);
+
+const manifestPath = path.join(runtimeRoot, "textures", "manifest.json");
+let manifest = fs.readFileSync(manifestPath, "utf8");
+const scopedTextureCount = manifest.split('": "/textures/').length - 1;
+const relativeTextureCount = manifest.split('": "./textures/').length - 1;
+if (scopedTextureCount > 0 || relativeTextureCount > 0) {
+  manifest = manifest
+    .replaceAll('": "/textures/', '": "/gallery-v3/portfolio/textures/')
+    .replaceAll('": "./textures/', '": "/gallery-v3/portfolio/textures/');
+} else if (!manifest.includes('": "/gallery-v3/portfolio/textures/')) {
+  throw new Error("texture manifest contains no runtime texture paths");
+}
+fs.writeFileSync(manifestPath, manifest);
+
+const sourceOverrides = `<style id="gallery-host-overrides">
+html,body,#__nuxt,#__nuxt>.bg-black{background:var(--gallery-host-composite-key,#000)!important}
+body:before{display:none!important}
+[data-od-id="error-state"]{display:none!important}
+[data-id="nathan-riley"]{aspect-ratio:2048/1172}
+[data-id="casa-di-solare"]{aspect-ratio:2048/1204}
+[data-id="the-lookback"]{aspect-ratio:1250/720}
+[data-id="book-of-happiness"]{aspect-ratio:2048/1114}
+[data-id="dogelon-mars"]{aspect-ratio:3360/2200}
+[data-id="gil-huybrecht"]{aspect-ratio:1196/720}
+[data-id="discoveryland"]{aspect-ratio:1372/1029}
+[data-id="griflan"]{aspect-ratio:1162/720}
+@font-face{font-family:"Gallery Brother Signature";src:url("/gallery-v3/portfolio/assets/fonts/BrotherSignature-7BWnK.otf") format("opentype");font-style:normal;font-weight:400;font-display:swap}
+[data-od-id="brand-home"]{display:none!important}
+[data-od-id="profile-toggle"]{left:50%!important;right:auto!important;transform:translateX(-50%)!important}
+[data-od-id="profile-toggle"][aria-expanded="false"]{font-family:"Gallery Brother Signature","Segoe Script","Brush Script MT",cursive!important;font-size:clamp(28px,2.2vw,38px)!important;font-style:normal!important;font-weight:400!important;line-height:1!important;letter-spacing:normal!important;text-transform:none!important;white-space:nowrap}
+[data-gallery-profile-copy]{max-width:none!important}
+[data-gallery-profile-line]{display:block;white-space:nowrap}
+[data-gallery-profile-honors]{display:none!important}
+@media(max-width:649px){[data-gallery-profile-line]{white-space:normal}}
+[data-gallery-hide-project-cards="true"] [data-od-id^="project-card-"]{display:none!important}
+[data-gallery-hide-featured-control="true"] [data-od-id="view-featured"],[data-gallery-hide-featured-control="true"] nav[aria-label="项目视图"]>span[aria-hidden="true"]{display:none!important}
+[data-gallery-hide-featured-control="true"] [data-od-id="profile-toggle"],[data-gallery-hide-featured-control="true"] [data-od-id="view-full"]{-webkit-text-fill-color:currentColor!important}
+[data-od-id="interface-chrome"]{color:var(--gallery-host-text,#fff)}
+:focus-visible{outline:2px solid var(--gallery-host-focus,#fff)!important;outline-offset:4px}
+</style>`;
+
+const sourceBridge = `<script id="gallery-host-bridge">(()=>{
+const base="/gallery-v3/portfolio/";
+const applyTheme=data=>{if(!data||data.type!=="gallery-theme")return;const root=document.documentElement;root.dataset.galleryAppearance="dark";root.dataset.galleryHideProjectCards=String(Boolean(data.hideProjectCards));root.dataset.galleryHideFeaturedControl=String(Boolean(data.hideFeaturedControl));if(data.text)root.style.setProperty("--gallery-host-text",data.text);if(data.focus)root.style.setProperty("--gallery-host-focus",data.focus);if(data.compositeKey)root.style.setProperty("--gallery-host-composite-key",data.compositeKey)};
+addEventListener("message",event=>applyTheme(event.data));
+const normalizeLinks=()=>{for(const anchor of document.querySelectorAll("a[href]")){const raw=anchor.getAttribute("href");if(!raw||raw.startsWith("#")||raw.startsWith("mailto:")||raw.startsWith("tel:"))continue;let url;try{url=new URL(raw,location.href)}catch{continue}if(url.origin!==location.origin)continue;const odId=anchor.dataset.odId;const relative=url.pathname.startsWith(base)?url.pathname.slice(base.length):url.pathname.slice(1);const parts=relative.split("/").filter(Boolean);if(odId==="brand-home"||odId==="view-featured"||url.pathname==="/"){url.pathname=base}else if(odId==="view-full"||parts[0]==="full"){url.pathname=base+"full/index.html"}else if(parts[0]==="projects"&&parts[1]){url.pathname=base+"projects/"+parts[1]+"/index.html"}else continue;anchor.href=url.href}};
+const routeFor=target=>{const card=target.closest?.('[data-od-id^="project-card-"]');const slug=card?.dataset?.id;if(slug)return slug.startsWith("task-")?"/projects/nathan-riley?task="+encodeURIComponent(slug):"/projects/"+encodeURIComponent(slug);const anchor=target.closest?.("a[href]");if(!anchor)return null;const odId=anchor.dataset.odId;if(odId==="brand-home"||odId==="view-featured")return"/";if(odId==="view-full")return"/full";let url;try{url=new URL(anchor.href,location.href)}catch{return null}if(url.origin!==location.origin)return null;const relative=url.pathname.startsWith(base)?url.pathname.slice(base.length):url.pathname.slice(1);const parts=relative.split("/").filter(Boolean);if(relative===""||relative==="index.html")return"/";if(parts[0]==="full")return"/full";if(parts[0]==="projects"&&parts[1])return"/projects/"+parts[1]+url.search;return null};
+const fallbackFor=route=>{const url=new URL(route,"http://gallery.local");const path=url.pathname==="/"?base:url.pathname==="/full"?base+"full/index.html":base+url.pathname.slice(1)+"/index.html";return path+url.search+url.hash};
+const navigate=route=>{const router=document.querySelector("#__nuxt")?.__vue_app__?.config?.globalProperties?.$router;if(!router){location.href=fallbackFor(route);return}Promise.resolve(router.push(route)).catch(()=>{location.href=fallbackFor(route)})};
+document.addEventListener("click",event=>{if(event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;const route=routeFor(event.target);if(!route)return;event.preventDefault();event.stopImmediatePropagation();navigate(route)},true);
+const normalizeProfileLabel=()=>{const toggle=document.querySelector('[data-od-id="profile-toggle"]');if(toggle?.textContent?.trim()==="简介")toggle.textContent="Preacherman"};
+const profileLines=["An intelligent home.","One place for your virtual characters, engines, and tools.","AI that keeps learning, goes with you, and gets things done.","Your second identity in the virtual world."];
+const normalizeProfileCopy=()=>{const paragraphs=[...document.querySelectorAll("p")];const biography=paragraphs.find(paragraph=>paragraph.textContent?.includes("Jesper Landberg"));if(biography){biography.replaceChildren(...profileLines.map((line,index)=>{const span=document.createElement("span");span.dataset.galleryProfileLine=String(index+1);span.textContent=line;return span}));biography.dataset.galleryProfileCopy="true"}const honors=paragraphs.find(paragraph=>paragraph.textContent?.includes("Awwwards")&&paragraph.textContent?.includes("74"));if(honors)honors.dataset.galleryProfileHonors="true"};
+const normalizeCards=()=>{for(const card of document.querySelectorAll('[data-gl="card"]')){const title=card.querySelector("[data-title]")?.textContent?.trim()||"项目";card.setAttribute("role","link");card.tabIndex=0;card.setAttribute("aria-label","打开项目："+title)}};
+const syncInterface=()=>{normalizeLinks();normalizeProfileLabel();normalizeProfileCopy();normalizeCards()};
+let sourceReadySent=false;
+const signalSourceReady=()=>{if(sourceReadySent)return;sourceReadySent=true;requestAnimationFrame(()=>requestAnimationFrame(()=>parent.postMessage({type:"gallery-source-ready",path:location.pathname},"*")))};
+const ready=()=>{syncInterface();if(document.body.classList.contains("preview-ready")){signalSourceReady();return}const observer=new MutationObserver(()=>{if(!document.body.classList.contains("preview-ready"))return;observer.disconnect();signalSourceReady()});observer.observe(document.body,{attributes:true,attributeFilter:["class"]})};
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",ready,{once:true});else ready();
+new MutationObserver(syncInterface).observe(document.documentElement,{subtree:true,childList:true});
+})()</script>`;
+
+const taskCreateSsr = `<div class="task-create"><button type="button" class="task-create__button" title="创建新对话" aria-label="创建新对话"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button><!----></div>`;
+
+function collectHtmlFiles(directory) {
+  const files = [];
+  for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+    const entryPath = path.join(directory, entry.name);
+    if (entry.isDirectory()) files.push(...collectHtmlFiles(entryPath));
+    else if (entry.name === "index.html") files.push(entryPath);
+  }
+  return files;
+}
+
+const htmlFiles = collectHtmlFiles(runtimeRoot);
+for (const htmlPath of htmlFiles) {
+  let html = fs.readFileSync(htmlPath, "utf8");
+  html = html.replaceAll(">邮件<", ">Email<").replaceAll(">简介</button>", ">Preacherman</button>");
+  html = html.replace(/<link\b[^>]*href="[^"]*\/BNIAOxM5\.js"[^>]*>\n?/g, "");
+  const hasOverrides = html.includes('id="gallery-host-overrides"');
+  const hasBridge = html.includes('id="gallery-host-bridge"');
+  if (hasOverrides !== hasBridge) {
+    throw new Error(`Gallery source patch is incomplete: ${htmlPath}`);
+  }
+  html = html.replaceAll('baseURL:"/"', 'baseURL:"/gallery-v3/portfolio/"');
+  html = html
+    .replaceAll('url("RECON/screenshots/polish-1440.png")', "none")
+    .replaceAll('url("RECON/screenshots/polish-768.png")', "none")
+    .replaceAll('url("RECON/screenshots/polish-390.png")', "none");
+  if (htmlPath === path.join(runtimeRoot, "index.html") && !html.includes('class="task-create"')) {
+    html = replaceExact(
+      html,
+      '</div></main><div inert class="pointer-events-none fixed',
+      `</div>${taskCreateSsr}</main><div inert class="pointer-events-none fixed`,
+      1,
+      "task create server markup",
+    );
+  }
+  if (htmlPath === path.join(runtimeRoot, "index.html")) {
+    html = html.replace('<div class="task-create">', '<div class="task-create" popover="manual">');
+    if (!html.includes('aria-controls="task-create-dialog"')) {
+      html = html.replace(
+        'class="task-create__button" title="创建新对话" aria-label="创建新对话"',
+        'class="task-create__button" title="创建新对话" aria-label="创建新对话" aria-haspopup="dialog" aria-controls="task-create-dialog" aria-expanded="false"',
+      );
+    }
+  }
+  if (!hasOverrides) {
+    html = html.replace("</head>", `${sourceOverrides}</head>`);
+    html = html.replace("</body>", `${sourceBridge}</body>`);
+  } else {
+    html = html.replace(
+      /<style id="gallery-host-overrides">[\s\S]*?<\/style>/,
+      sourceOverrides,
+    );
+    html = html.replace(
+      /<script id="gallery-host-bridge">[\s\S]*?<\/script>/,
+      sourceBridge,
+    );
+    if (!html.includes("body:before{background:transparent!important}")) {
+      html = html.replace(
+        "html,body{background:transparent!important}",
+        "html,body{background:transparent!important}\\nbody:before{background:transparent!important}",
+      );
+    }
+  }
+  fs.writeFileSync(htmlPath, html);
+}
+
+console.log(JSON.stringify({ runtimeRoot, htmlFiles: htmlFiles.length }, null, 2));

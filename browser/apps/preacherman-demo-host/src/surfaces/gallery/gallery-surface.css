@@ -1,0 +1,274 @@
+.gallery-surface {
+  --gallery-surface-scan-duration: 340ms;
+  --gallery-surface-open-duration: 420ms;
+  --gallery-surface-reveal-duration: 760ms;
+
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: var(--demo-theme-text);
+  background: transparent;
+}
+
+.gallery-surface__mask {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  color: var(--demo-theme-text);
+  background: transparent;
+  contain: paint;
+}
+
+.gallery-surface[data-reveal-state="opening"] .gallery-surface__frame {
+  animation: gallery-surface-open var(--gallery-surface-open-duration) cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform;
+}
+
+.gallery-surface__frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  color: var(--demo-theme-text);
+  background: transparent;
+  opacity: 0.001;
+  transform-origin: center;
+}
+
+.gallery-surface[data-reveal-state="opening"] .gallery-surface__frame,
+.gallery-surface[data-reveal-state="complete"] .gallery-surface__frame {
+  opacity: var(--demo-theme-gallery-overlay-opacity);
+}
+
+.gallery-surface[data-featured-empty="true"] .gallery-surface__frame {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@font-face {
+  font-family: "Gallery Brother Signature";
+  src: url("/gallery-v3/portfolio/assets/fonts/BrotherSignature-7BWnK.otf") format("opentype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.gallery-surface__empty-chrome {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  color: var(--demo-theme-gallery-control-hover);
+  pointer-events: none;
+}
+
+.gallery-surface__profile-toggle,
+.gallery-surface__full-link,
+.gallery-surface__profile a {
+  color: inherit;
+  pointer-events: auto;
+}
+
+.gallery-surface__profile-toggle,
+.gallery-surface__full-link {
+  margin: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.gallery-surface__profile-toggle {
+  position: absolute;
+  top: 3rem;
+  left: 50%;
+  min-height: 44px;
+  padding: 0 1.5rem;
+  font-family: "Gallery Brother Signature", "Segoe Script", "Brush Script MT", cursive;
+  font-size: clamp(28px, 2.2vw, 38px);
+  line-height: 1;
+  transform: translateX(-50%);
+}
+
+.gallery-surface__full-link {
+  position: absolute;
+  bottom: 3rem;
+  left: 8rem;
+  min-height: 44px;
+  padding: 0 1.5rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+
+.gallery-surface__profile {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(60rem, calc(100% - 12rem));
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+
+.gallery-surface__profile p span {
+  display: block;
+  white-space: nowrap;
+}
+
+.gallery-surface__profile ul {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  margin-top: 3rem;
+  list-style: none;
+}
+
+.gallery-surface__profile a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 1.4rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.gallery-surface__profile-toggle:focus-visible,
+.gallery-surface__full-link:focus-visible,
+.gallery-surface__profile a:focus-visible {
+  outline: 2px solid var(--demo-theme-gallery-scan);
+  outline-offset: 4px;
+}
+
+@media (max-width: 649px) {
+  .gallery-surface__profile p span {
+    white-space: normal;
+  }
+
+  .gallery-surface__full-link {
+    bottom: 1.5rem;
+    left: 1.5rem;
+  }
+}
+
+.gallery-surface__frame:focus-visible {
+  outline: 2px solid var(--demo-theme-focus);
+  outline-offset: -2px;
+}
+
+.gallery-surface__status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.gallery-surface__reveal-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  z-index: 3;
+  width: 100%;
+  height: 1px;
+  background: var(--demo-theme-gallery-scan, var(--demo-theme-text));
+  box-shadow: 0 0 14px color-mix(in srgb, var(--demo-theme-gallery-scan, var(--demo-theme-text)) 72%, transparent);
+  pointer-events: none;
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.gallery-surface[data-reveal-state="scanning"] .gallery-surface__reveal-line {
+  animation: gallery-surface-scan-line var(--gallery-surface-scan-duration) linear both;
+  will-change: opacity, transform;
+}
+
+.gallery-surface[data-reveal-state="waiting"] .gallery-surface__reveal-line {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.gallery-surface[data-reveal-state="opening"] .gallery-surface__reveal-line {
+  animation: gallery-surface-dismiss-line var(--gallery-surface-open-duration) cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: opacity;
+}
+
+.gallery-surface[data-reveal-state="complete"] .gallery-surface__reveal-line {
+  opacity: 0;
+  transform: scaleX(1);
+}
+
+.gallery-surface__interaction-guard {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  background: transparent;
+  pointer-events: auto;
+}
+
+.gallery-surface[data-reveal-state="complete"] .gallery-surface__interaction-guard {
+  pointer-events: none;
+}
+
+@keyframes gallery-surface-open {
+  0% {
+    transform: scaleY(0);
+  }
+
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes gallery-surface-scan-line {
+  0% {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  4% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes gallery-surface-dismiss-line {
+  0%,
+  72% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-surface__frame {
+    transform: none;
+    animation: none;
+    will-change: auto;
+  }
+
+  .gallery-surface__reveal-line {
+    display: none;
+    animation: none;
+    will-change: auto;
+  }
+
+  .gallery-surface__interaction-guard {
+    pointer-events: none;
+    animation: none;
+  }
+}

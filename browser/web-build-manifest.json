@@ -1,0 +1,64 @@
+{
+  "edition": "browser",
+  "desktop_source_commit": "b2b0c89ba64a9b8a940b3deb2a3dec7153096d61",
+  "created_at": "2026-09-16T21:03:42.906197+00:00",
+  "static_directory": "web-dist",
+  "archive": {
+    "file": "preacherman-web.zip",
+    "bytes": 712811063,
+    "sha256": "587c2ecd6f2897b6a74aa25997de86576b56b7d131154bcf877bb1017f8d1436",
+    "files": 1319
+  },
+  "validation": {
+    "unit_tests": 17,
+    "browser_routes_and_viewports": 14,
+    "appearance_modes": [
+      "light",
+      "dark"
+    ],
+    "original_public_files_verified": 1308,
+    "missing_assets": 0,
+    "new_browser_errors": [],
+    "inherited_desktop_messages": [
+      "Hydration completed but contains mismatches.",
+      "TypeError: _this.initSync is not a function"
+    ],
+    "shortcut_cold_start": true,
+    "signed_in_browser_session_e2e": "Not performed with a real user; PKCE return and session handling covered by isolated tests.",
+    "viewport_refinement": {
+      "checks": 60,
+      "report": "output/playwright/browser-viewport/report.json",
+      "new_browser_errors": [],
+      "signed_out_dock_hides_with_navigation": true,
+      "account_font_matches_navigation": true
+    },
+    "platform_ring_sync": {
+      "desktop_source_commit": "44838bcd6ee016e807d6e4571f906495dc664ad7",
+      "web_source_commit": "bc87c928d1560ac95ffb20c89ca75cc8141f24fd",
+      "unit_tests_passed": 13,
+      "browser_ring_checks": 16,
+      "viewport_and_route_checks": 60,
+      "appearance_modes": [
+        "dark",
+        "light"
+      ],
+      "new_browser_errors": [],
+      "failed_local_assets": [],
+      "all_archive_files_match_web_dist": true,
+      "report": "D:\\preacherman\\output\\playwright\\web-platform-ring-20260920\\report.json",
+      "existing_preview_pid": 41212,
+      "preview_url": "http://localhost:5173",
+      "desktop_preserved": true
+    }
+  },
+  "desktop_unchanged": {
+    "executable_sha256": "9FB8818FFD3CBD2CB5D681B25C1878DB0BFE313682E4EC39D6A66DD62ABB3AF2",
+    "sidecar_sha256": "2465A32CAF878D0D6109C0975E5254F98CC1FA27CC7202FE574F5A367F90902E"
+  },
+  "deployment": {
+    "published": false,
+    "domain": null,
+    "cloud_api": "Required for public AI, tools and voice; local preview uses separate API and data."
+  },
+  "updated_at": "2026-09-20T10:41:17.502283+00:00"
+}

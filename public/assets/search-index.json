@@ -1,0 +1,650 @@
+[
+  {
+    "title": "Vessel",
+    "search": "Vessel Vessel your intelligence, manage them as a lifetime treated ",
+    "href": "#sidekick",
+    "handle": "sidekick-0",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "AVATAR",
+    "search": "AVATAR A persistent container for intelligence. Intelligence always can be changed. The Vessel persists. 阅读帮助文档",
+    "href": "#insights-proactively-delivered",
+    "handle": "insights-proactively-delivered-1",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "A persistent container for intelligence.",
+    "search": "A persistent container for intelligence. Intelligence always can be changed. The Vessel persists. 阅读帮助文档",
+    "href": "#card-heading-sidekick-pulse",
+    "handle": "card-heading-sidekick-pulse-2",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "Choose the intelligence.",
+    "search": "Choose the intelligence. Connect the models and agents you already use. Its capabilities come from the intelligence you connect. Its continuity stays with the Vessel. 阅读帮助文档Create an app that recommends products I need to restock.Create a task tracker for the whole team.Create an app that checks whether orders are eligible for returns and cancellations.Create an event preparation app that generates discounted checkout links for selected products.Create a bulk B2B company importer that uploads company information from a CSV file.Create an app that recommends products I need to restock.Create a task tracker for the whole team.Create an app that checks whether orders are eligible for returns and cancellations.Create an event preparation app that generates discounted checkout links for selected products.Create a bulk B2B company importer that uploads company information from a CSV file.Avatar's abilities depend on the engine you connect it to; it can do anything that engine can. Compatible with all cutting-edge models and agents, leveraging their efforts to keep your memories and data.The Token it uses will become your badge.获取应用定制分析报告Sidekick 可直接在 ShopifyQL 查询编辑器中生成定制报告和数据可视化。阅读帮助文档客户分群助手Sidekick 可以协助创建客户分群，也能从零生成。阅读帮助文档",
+    "href": "#complexity-delegated",
+    "handle": "complexity-delegated-3",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "Connect the models and agents you already use.",
+    "search": "Connect the models and agents you already use. Its capabilities come from the intelligence you connect. Its continuity stays with the Vessel. 阅读帮助文档",
+    "href": "#card-heading-sidekick-generates-apps",
+    "handle": "card-heading-sidekick-generates-apps-4",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "Avatar's abilities depend on the engine you connect it to; it can do anything that engine can.",
+    "search": "Avatar's abilities depend on the engine you connect it to; it can do anything that engine can. Compatible with all cutting-edge models and agents, leveraging their efforts to keep your memories and data.The Token it uses will become your badge.获取应用",
+    "href": "#card-heading-sidekick-builds-workflows-in-shopify-flow",
+    "handle": "card-heading-sidekick-builds-workflows-in-shopify-flow-5",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "A brand-new way of interacting",
+    "search": "A brand-new way of interacting Communicate with each virtual person directly, replacing traditional chat windows, letting you experience the convenience of AI more immersively. Combined with lifelike movements, feeling like talking to a friend.",
+    "href": "#designs-refined",
+    "handle": "designs-refined-8",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "A brand-new way of interacting",
+    "search": "A brand-new way of interacting Communicate with each virtual person directly, replacing traditional chat windows, letting you experience the convenience of AI more immersively. Combined with lifelike movements, feeling like talking to a friend.",
+    "href": "#designs-refined",
+    "handle": "card-heading-sidekick-generates-theme-edits-9",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "It has its own memory, but it can also become a more suitable, more 'you' version of agents.",
+    "search": "It has its own memory, but it can also become a more suitable, more 'you' version of agents. Over long-term use, even though it relies on external APIs and model capabilities, it will accumulate your data, assets, and memories, making it understand you better and become another part of your virtual self.",
+    "href": "#tedious-tasks-simplified",
+    "handle": "tedious-tasks-simplified-13",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "It has its own memory, but it can also become a more suitable, more 'you' version of agents.",
+    "search": "It has its own memory, but it can also become a more suitable, more 'you' version of agents. Over long-term use, even though it relies on external APIs and model capabilities, it will accumulate your data, assets, and memories, making it understand you better and become another part of your virtual self.",
+    "href": "#tedious-tasks-simplified",
+    "handle": "card-heading-sidekick-skills-14",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "AI 商务",
+    "search": "AI 商务使用内置工具，将商品同步到各个 AI 平台，直接在 AI 对话中销售。",
+    "href": "#agentic",
+    "handle": "agentic-24",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "Shopify Agentic Storefronts",
+    "search": "Shopify Agentic Storefronts管理品牌在数百万购物者使用的 AI 对话中的展示方式。商品可直接出现在 ChatGPT、Copilot 和 Perplexity 中，更多渠道即将上线。阅读帮助文档",
+    "href": "#card-heading-shopify-agentic-storefronts",
+    "handle": "card-heading-shopify-agentic-storefronts-25",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "Agentic Storefronts",
+    "search": "Agentic Storefronts只需配置一次数据，Shopify Agentic Storefronts 就能让商品出现在各个平台的 AI 对话中。",
+    "href": "#card-heading-agentic-storefronts-video",
+    "handle": "card-heading-agentic-storefronts-video-26",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "在线商店",
+    "search": "在线商店通过 A/B 测试与模拟购物行为的 AI 工具，验证店铺调整效果。",
+    "href": "#online",
+    "handle": "online-27",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "用 Rollouts 测试并安排上线",
+    "search": "用 Rollouts 测试并安排上线直接在后台使用 Rollouts，为主题更新排期并开展 A/B 测试。阅读帮助文档",
+    "href": "#card-heading-rollouts",
+    "handle": "card-heading-rollouts-28",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "Shopify SimGym 应用",
+    "search": "Shopify SimGym 应用利用数十亿次购买数据训练的 AI 智能体模拟购物行为，在上线前获取可执行的建议。获取应用",
+    "href": "#card-heading-shopify-simgym-app",
+    "handle": "card-heading-shopify-simgym-app-29",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "在主题编辑器中管理店铺详情",
+    "search": "在主题编辑器中管理店铺详情无需中断工作流，即可在主题编辑器及后台各处修改商品、商品系列、市场、元字段等内容。阅读帮助文档",
+    "href": "#card-heading-manage-store-details-in-the-theme-editor",
+    "handle": "card-heading-manage-store-details-in-the-theme-editor-30",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "在移动端生成主题",
+    "search": "在移动端生成主题直接使用 Shopify 移动端 应用设计店铺，随时生成、预览并发布主题。阅读帮助文档",
+    "href": "#card-heading-theme-generation-on-mobile",
+    "handle": "card-heading-theme-generation-on-mobile-31",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "在 WordPress 上销售",
+    "search": "在 WordPress 上销售使用 Shopify 插件，为 WordPress 网站添加商品、商品系列、购物车与结账功能，变身在线商店。阅读帮助文档",
+    "href": "#card-heading-sell-on-wordpress",
+    "handle": "card-heading-sell-on-wordpress-32",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "Horizon 主题迎来 250 多项改进",
+    "search": "Horizon 主题迎来 250 多项改进使用 Horizon，体验全新动画、交互版块、更快性能及更多更新。",
+    "href": "#over-250-horizon-theme-improvements",
+    "handle": "over-250-horizon-theme-improvements-33",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "每件商品支持 2048 个多属性选项",
+    "search": "每件商品支持 2048 个多属性选项为商品创建多达 2048 个多属性选项，管理并展示更丰富的商品目录。",
+    "href": "#2048-variants-per-product",
+    "handle": "2048-variants-per-product-34",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "不公开展示的商品状态",
+    "search": "不公开展示的商品状态在搜索结果、商品系列等位置隐藏商品，同时保留通过直接 URL 访问的能力。",
+    "href": "#unlisted-product-status",
+    "handle": "unlisted-product-status-35",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "商品系列改进",
+    "search": "商品系列改进复制商品系列，并使用条件逻辑从智能商品系列中排除特定商品。",
+    "href": "#duplicate-and-exclude-products-from-collections",
+    "handle": "duplicate-and-exclude-products-from-collections-36",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "为指定客户提供自动折扣",
+    "search": "为指定客户提供自动折扣为 VIP 等指定客户创建自动折扣，开展精准促销。",
+    "href": "#automatic-discounts-for-eligible-customers",
+    "handle": "automatic-discounts-for-eligible-customers-37",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "商品目录中的原价",
+    "search": "商品目录中的原价直接在后台设置原价，无需导入 CSV 或使用 API。",
+    "href": "#compare-at-prices-in-catalogs",
+    "handle": "compare-at-prices-in-catalogs-38",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "合并套装选项",
+    "search": "合并套装选项合并尺寸、长度等套装选项，尽在 Shopify Bundles 应用中。",
+    "href": "#combine-bundle-options",
+    "handle": "combine-bundle-options-39",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "单位定价面向全球开放",
+    "search": "单位定价面向全球开放按重量、体积、长度或数量展示价格，支持公制、英制与计件，现已在全球开放。",
+    "href": "#unit-pricing-available-globally",
+    "handle": "unit-pricing-available-globally-40",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "用 Lovable 通过对话编程",
+    "search": "用 Lovable 通过对话编程使用 Lovable 快速创建 Shopify 商店，涵盖商品、库存、分析、结账等功能。",
+    "href": "#vibe-code-with-lovable",
+    "handle": "vibe-code-with-lovable-41",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "AI 域名推荐",
+    "search": "AI 域名推荐让 AI 推荐独特且可注册的域名。仅支持英语。",
+    "href": "#ai-powered-domain-discovery",
+    "handle": "ai-powered-domain-discovery-42",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "更轻松地发现主题",
+    "search": "更轻松地发现主题借助更好的搜索、更精准的行业筛选，以及更少手动设置的模板，找到合适的主题。",
+    "href": "#improved-theme-search-and-industry-filters",
+    "handle": "improved-theme-search-and-industry-filters-43",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "注册前即可用 AI 生成主题",
+    "search": "注册前即可用 AI 生成主题描述你想销售的商品，即使没有 Shopify 账户，AI 也能为你生成专属商店。",
+    "href": "#ai-generated-theme-before-signup",
+    "handle": "ai-generated-theme-before-signup-44",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "iOS 26 验证码自动填充",
+    "search": "iOS 26 验证码自动填充客户可使用 Apple iOS 26 的验证码自动填充功能，无需离开浏览器即可登录。",
+    "href": "#autofill-passcode-on-ios-26",
+    "handle": "autofill-passcode-on-ios-26-45",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "使用 Shop 快速登录",
+    "search": "使用 Shop 快速登录已识别的 Shop 用户只需轻点一下，即可登录任意 Shopify 商店。",
+    "href": "#one-tap-sign-in-with-shop",
+    "handle": "one-tap-sign-in-with-shop-46",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "使用社交账户登录",
+    "search": "使用社交账户登录允许客户使用 Google 或 Facebook 账户登录店铺。",
+    "href": "#customer-sign-in-with-social-accounts",
+    "handle": "customer-sign-in-with-social-accounts-47",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "客户可自行修改邮箱",
+    "search": "客户可自行修改邮箱客户可以通过一次性验证码验证，在账户中自行修改邮箱地址。",
+    "href": "#customers-can-edit-their-email-addresses",
+    "handle": "customers-can-edit-their-email-addresses-48",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "自定义登录文案",
+    "search": "自定义登录文案在主题内容编辑器中，修改客户登录页面与一次性验证码页面的文案。",
+    "href": "#customizable-sign-in-copy",
+    "handle": "customizable-sign-in-copy-49",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "认识 Tinker",
+    "search": "认识 Tinker让创业者在一个应用中，尽情探索最新的 AI 工具。获取应用",
+    "href": "#card-heading-tinker-app",
+    "handle": "card-heading-tinker-app-50",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "营销",
+    "search": "营销借助开创性的商品网络，让销量持续增长。",
+    "href": "#marketing",
+    "handle": "marketing-69",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "Shopify Product Network",
+    "search": "Shopify Product Network在搜索、商品系列、邮件与购买后页面中，即时展示其他 Shopify 品牌的商品，补齐品类，并从每笔成交中赚取佣金。仅限美国。获取应用",
+    "href": "#card-heading-shopify-product-network",
+    "handle": "card-heading-shopify-product-network-70",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "Shop Campaigns 拓展至在线商店",
+    "search": "Shop Campaigns 拓展至在线商店在其他相关 Shopify 店铺的商品系列、搜索与购买后页面中自动获得推广。仅限美国。阅读帮助文档",
+    "href": "#card-heading-shop-campaigns-expands-to-the-online-store",
+    "handle": "card-heading-shop-campaigns-expands-to-the-online-store-71",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "Shopify Messaging 支持短信营销",
+    "search": "Shopify Messaging 支持短信营销创建、排期、发送并跟踪 短信营销 活动，尽在 Shopify Messaging 应用。获取应用",
+    "href": "#card-heading-shopify-messaging-supports-sms-marketing",
+    "handle": "card-heading-shopify-messaging-supports-sms-marketing-72",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "Shopify Forms 自动翻译",
+    "search": "Shopify Forms 自动翻译将表单从英语自动翻译为另外 19 种语言，使用 Shopify Forms 应用中。阅读帮助文档",
+    "href": "#card-heading-auto-translation-for-shopify-forms",
+    "handle": "card-heading-auto-translation-for-shopify-forms-73",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "优化客户分群模板搜索",
+    "search": "优化客户分群模板搜索在焕新的客户分群模板库中浏览、搜索和筛选。阅读帮助文档",
+    "href": "#card-heading-improved-segmentation-template-search",
+    "handle": "card-heading-improved-segmentation-template-search-74",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "一个 Shop Campaign 触达所有受众",
+    "search": "一个 Shop Campaign 触达所有受众只需一个 Shop Campaign，即可覆盖所有受众，同时实现拉新与唤回。仅限美国和加拿大。",
+    "href": "#target-all-audiences-in-one-shop-campaign",
+    "handle": "target-all-audiences-in-one-shop-campaign-75",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "Shop Campaigns 覆盖更多渠道",
+    "search": "Shop Campaigns 覆盖更多渠道在 X、Snapchat 和 Bing 等新广告渠道获得推广，仅在客户完成转化时付费。仅限美国。",
+    "href": "#shop-campaigns-on-x-snap-and-bing",
+    "handle": "shop-campaigns-on-x-snap-and-bing-76",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "按商品类别划分客户",
+    "search": "按商品类别划分客户根据客户浏览或购买过的商品类别创建分群。",
+    "href": "#segment-customers-with-product-categories",
+    "handle": "segment-customers-with-product-categories-77",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "优化邮件客户分群",
+    "search": "优化邮件客户分群通过直观的分群选择与推荐，精准触达客户，尽在 Shopify Messaging 应用中。",
+    "href": "#improved-email-customer-segmentation",
+    "handle": "improved-email-customer-segmentation-78",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "邮件中的动态商品版块",
+    "search": "邮件中的动态商品版块创建邮件时自动展示畅销商品或指定商品系列，尽在 Shopify Messaging 应用中。",
+    "href": "#dynamic-product-sections-in-emails",
+    "handle": "dynamic-product-sections-in-emails-79",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "消息日历视图",
+    "search": "消息日历视图在日程中安排营销邮件与短信，并通过推荐版块创建活动，尽在 Shopify Messaging 应用中。",
+    "href": "#calendar-view-for-messaging",
+    "handle": "calendar-view-for-messaging-80",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "Shopify Forms 营销授权",
+    "search": "Shopify Forms 营销授权为每份表单设置营销授权的收集方式，使用 Shopify Forms 应用中。",
+    "href": "#shopify-forms-marketing-consent",
+    "handle": "shopify-forms-marketing-consent-81",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "客户账户页面支持网络像素",
+    "search": "客户账户页面支持网络像素在客户账户页面运行网络像素与第一方分析，深入了解购买后行为。",
+    "href": "#web-pixels-on-customer-accounts",
+    "handle": "web-pixels-on-customer-accounts-82",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "运营",
+    "search": "运营灵活的库存管理与洞察趋势的数据分析，让日常运营更高效。",
+    "href": "#operations",
+    "handle": "operations-94",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "灵活的库存调拨",
+    "search": "灵活的库存调拨接收来自未指定地点的商品、编辑运输中的货件，更准确地应对真实库存场景。阅读帮助文档",
+    "href": "#card-heading-flexible-inventory-transfers",
+    "handle": "card-heading-flexible-inventory-transfers-95",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "Shopify 移动应用支持快速销售",
+    "search": "Shopify 移动应用支持快速销售使用快速销售即时完成线下交易，通过 Tap to Pay 或付款链接收款。阅读帮助文档",
+    "href": "#card-heading-quick-sale-in-the-shopify-mobile-app",
+    "handle": "card-heading-quick-sale-in-the-shopify-mobile-app-96",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "Apple Watch 指标与小组件更新",
+    "search": "Apple Watch 指标与小组件更新在手腕上随时查看关键指标，用可自定义的小组件掌握店铺动态。阅读帮助文档",
+    "href": "#card-heading-updated-metrics-and-widgets-for-apple-watch",
+    "handle": "card-heading-updated-metrics-and-widgets-for-apple-watch-97",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "AI 增强拒付管理",
+    "search": "AI 增强拒付管理自动生成争议摘要，涵盖配送追踪、店铺政策等关键依据。",
+    "href": "#ai-enhanced-chargeback-management",
+    "handle": "ai-enhanced-chargeback-management-98",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "免密码登录",
+    "search": "免密码登录设置通行密钥，通过指纹、面容或 PIN 安全登录店铺。",
+    "href": "#password-free-login",
+    "handle": "password-free-login-99",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "数据分析支持热力图",
+    "search": "数据分析支持热力图以热力图呈现两个维度的数据，例如按小时和星期查看销售表现，找到销售高峰。",
+    "href": "#heatmaps-in-analytics",
+    "handle": "heatmaps-in-analytics-100",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "自定义分析图表的热门项目数量",
+    "search": "自定义分析图表的热门项目数量自由设置图表展示的项目数量，灵活查看报表，不再局限于五项。",
+    "href": "#customizable-top-items-in-analytics",
+    "handle": "customizable-top-items-in-analytics-101",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "数据分析支持过滤机器人流量",
+    "search": "数据分析支持过滤机器人流量排除机器人流量，获得更准确的转化率和更纯净的数据。",
+    "href": "#bot-filtering-in-analytics",
+    "handle": "bot-filtering-in-analytics-102",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "完整库存历史记录",
+    "search": "完整库存历史记录取消 180 天限制，查看完整的库存调整历史。",
+    "href": "#comprehensive-inventory-history",
+    "handle": "comprehensive-inventory-history-103",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "更精确的分析日期与时间筛选",
+    "search": "更精确的分析日期与时间筛选使用精确到分钟的筛选条件，监测限时促销和新品发售。",
+    "href": "#precise-date-and-time-controls-for-analytics",
+    "handle": "precise-date-and-time-controls-for-analytics-104",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "多地点库存支持限时促销",
+    "search": "多地点库存支持限时促销使用多个地点的库存开展限时促销，避免超卖。",
+    "href": "#flash-sales-with-multi-location-inventory",
+    "handle": "flash-sales-with-multi-location-inventory-105",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "一个视图掌握多店数据",
+    "search": "一个视图掌握多店数据在同一视图查看整个组织的表现，再按店铺筛选并比较指标。仅限 Plus。",
+    "href": "#single-view-analytics-for-multiple-stores",
+    "handle": "single-view-analytics-for-multiple-stores-106",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "Order Printer 应用支持库位",
+    "search": "Order Printer 应用支持库位在以下应用中通过 CSV 或批量编辑器为每个 SKU 设置库位，加快拣货： Order Printer 应用中。",
+    "href": "#bin-locations-in-the-order-printer-app",
+    "handle": "bin-locations-in-the-order-printer-app-107",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "更多订单筛选选项",
+    "search": "更多订单筛选选项在后台按自定义元字段、订单总额和重量筛选订单，让履约流程更高效。",
+    "href": "#more-order-filtering-capabilities",
+    "handle": "more-order-filtering-capabilities-108",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "编辑含关税的未履约订单",
+    "search": "编辑含关税的未履约订单修改未履约订单时，关税、税费和总额将自动重新计算。",
+    "href": "#edit-unfulfilled-orders-with-duties",
+    "handle": "edit-unfulfilled-orders-with-duties-109",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "更完善的库存更新保护",
+    "search": "更完善的库存更新保护保存批量编辑时，通过颜色标记、警告和确认步骤，防止意外覆盖数据。",
+    "href": "#smarter-safeguards-for-inventory-updates",
+    "handle": "smarter-safeguards-for-inventory-updates-110",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "已履约商品支持折扣",
+    "search": "已履约商品支持折扣为已履约商品应用折扣并退款，确保税费和报表准确。",
+    "href": "#discounts-on-fulfilled-items",
+    "handle": "discounts-on-fulfilled-items-111",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "在 Flow 中预览工作流结果",
+    "search": "在 Flow 中预览工作流结果上线前测试 Shopify Flow 应用中的工作流，调整逻辑而不影响真实店铺数据。",
+    "href": "#preview-workflow-results-in-shopify-flow",
+    "handle": "preview-workflow-results-in-shopify-flow-112",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "全新 Flow 编辑器",
+    "search": "全新 Flow 编辑器在以下应用中构建大型自动化流程： Shopify Flow 竖向布局提供更宽敞的工作区。",
+    "href": "#redesigned-shopify-flow-editor",
+    "handle": "redesigned-shopify-flow-editor-113",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "取消 Flow 工作流运行",
+    "search": "取消 Flow 工作流运行在以下应用中取消单次或多次运行，停止自动化流程： Shopify Flow 应用中。",
+    "href": "#cancel-workflow-runs-in-shopify-flow",
+    "handle": "cancel-workflow-runs-in-shopify-flow-114",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "店铺余额邮件通知",
+    "search": "店铺余额邮件通知通过可自定义的邮件，通知顾客店铺余额已发放。",
+    "href": "#store-credit-email-notifications",
+    "handle": "store-credit-email-notifications-115",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "升级版 Managed Markets",
+    "search": "升级版 Managed Markets即时合规检查、更快到账，以及完整的协调制度编码控制，助你开展跨境销售。仅限美国。",
+    "href": "#enhanced-managed-markets",
+    "handle": "enhanced-managed-markets-116",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "Shop 应用",
+    "search": "Shop 应用通过个性化购物体验，触达数百万购买意愿强烈的消费者。",
+    "href": "#shop-app",
+    "handle": "shop-app-117",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "动态店铺页面",
+    "search": "动态店铺页面自动为你的 Shop 店铺展示与每位顾客相关的个性化商品。阅读文章",
+    "href": "#card-heading-dynamic-shop-storefronts",
+    "handle": "card-heading-dynamic-shop-storefronts-118",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "优惠信息流",
+    "search": "优惠信息流在以下应用的专属优惠信息流中突出展示折扣、降价和 Shop Campaigns： Shop。阅读文章",
+    "href": "#card-heading-deals-feed-on-shop",
+    "handle": "card-heading-deals-feed-on-shop-119",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "可购物视频",
+    "search": "可购物视频将可购物视频添加至 Shop AI 将通过内置排序和推荐机制，优化视频分发。阅读帮助文档",
+    "href": "#card-heading-shoppable-videos-on-shop",
+    "handle": "card-heading-shoppable-videos-on-shop-120",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "可自定义的商品页",
+    "search": "可自定义的商品页为你的 Shop 商品页添加自定义区块、视频和品牌元素，上线前即可预览效果。",
+    "href": "#customizable-shop-product-pages",
+    "handle": "customizable-shop-product-pages-121",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "Shop Minis 商品发现体验升级",
+    "search": "Shop Minis 商品发现体验升级你的商品会自动出现在虚拟试穿、穿搭记录等沉浸式体验中，触达相关顾客。",
+    "href": "#better-product-discovery-in-shop-minis",
+    "handle": "better-product-discovery-in-shop-minis-122",
+    "vendor": "winter2026",
+    "isCurrent": true
+  },
+  {
+    "title": "订单追踪新增支持 21 个国家",
+    "search": "订单追踪新增支持 21 个国家德国、法国、意大利、西班牙、新西兰、墨西哥、瑞士、丹麦、比利时、瑞典、挪威、波兰、罗马尼亚、葡萄牙、立陶宛、捷克、荷兰、奥地利、芬兰、爱沙尼亚和拉脱维亚的顾客现可追踪订单。",
+    "href": "#shop-order-tracking-in-18-more-countries",
+    "handle": "shop-order-tracking-in-18-more-countries-123",
+    "vendor": "winter2026",
+    "isCurrent": true
+  }
+]

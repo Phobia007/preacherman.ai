@@ -1,0 +1,27 @@
+{
+  "identifier": "main-capability",
+  "description": "Native window controls for the local Preacherman demo host",
+  "windows": [
+    "main"
+  ],
+  "permissions": [
+    "core:window:default",
+    "core:window:allow-close",
+    "core:window:allow-minimize",
+    "core:window:allow-toggle-maximize",
+    "core:window:allow-start-dragging",
+    "core:window:allow-start-resize-dragging",
+    "shell:allow-spawn",
+    "core:event:allow-listen",
+    "core:event:allow-unlisten",
+    "deep-link:allow-get-current",
+    {
+      "identifier": "opener:allow-open-url",
+      "allow": [
+        {
+          "url": "https://gzqmjzybaosxhkfgbxaz.supabase.co/auth/v1/authorize?*"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+import {
+  InteractiveAvatarViewport,
+  avatarModelName,
+  avatarDefaultActionId,
+  createAvatarAssetUrls,
+  prefetchAvatarModel,
+  type AvatarCameraFraming,
+  type AvatarSceneEnvironment,
+} from "@preacherman/avatar-renderer";
+import { useCallback, useEffect, useState, type ReactNode } from "react";
+import { localAvatarAssetBaseUrl } from "../avatar/avatarAssets";
+import { useAvatarInteractionState } from "../live/LiveCoordinatorContext";
+import {
+  cortanaSpeechMotionBinding,
+  zimaSpeechMotionBinding,
+} from "../motion/avatarRigBindings";
+import type { ModelId } from "../preferences";
+import { speechMotionRuntime } from "../motion/SpeechMotionRuntime";
+
+interface CortanaModelStageProps {
+  readonly sceneContent?: ReactNode;
+  readonly companionVisible?: boolean;
+  readonly ariaLabel: string;
+  readonly environment?: AvatarSceneEnvironment;
+  readonly isolateCompanion?: boolean;
+  readonly variant?: "embedded" | "persistent";
+  readonly renderActive?: boolean;
+  readonly modelId?: ModelId;
+  readonly prefetchModelId?: ModelId;
+  readonly cameraFraming?: AvatarCameraFraming;
+  readonly rotationOffsetY?: number;
+}
+
+export function CortanaModelStage({
+  sceneContent,
+  companionVisible = true,
+  ariaLabel,
+  environment = "transparent",
+  isolateCompanion = false,
+  variant = "embedded",
+  renderActive = true,
+  modelId = "cortana",
+  prefetchModelId,
+  cameraFraming = "full-body",
+  rotationOffsetY = 0,
+}: CortanaModelStageProps) {
+  const modelName = avatarModelName(modelId);
+  const interactionState = useAvatarInteractionState();
+  const [readyModel, setReadyModel] = useState<ModelId | null>(null);
+  const [failedModel, setFailedModel] = useState<ModelId | null>(null);
+  const loadState = failedModel === modelId ? "error" : readyModel === modelId ? "ready" : "loading";
+  const [jawOpen, setJawOpen] = useState(0);
+  const handleError = useCallback(() => setFailedModel(modelId), [modelId]);
+  const handleReady = useCallback(() => { setReadyModel(modelId); setFailedModel(null); }, [modelId]);
+  const defaultActionId = avatarDefaultActionId(modelId);
+
+  useEffect(() => {
+    if (!renderActive || loadState !== "ready" || !prefetchModelId || prefetchModelId === modelId) return;
+    const timer = window.setTimeout(() => {
+      if (document.hidden) return;
+      const url = createAvatarAssetUrls(localAvatarAssetBaseUrl(prefetchModelId), prefetchModelId).model;
+      void prefetchAvatarModel(url).catch(() => undefined);
+    }, 500);
+    return () => window.clearTimeout(timer);
+  }, [loadState, modelId, prefetchModelId, renderActive]);
+
+  useEffect(() => {
+    const applyJawOpen = (event: Event) => setJawOpen((event as CustomEvent<number>).detail || 0);
+    window.addEventListener("preacherman:avatar-jaw", applyJawOpen);
+    return () => window.removeEventListener("preacherman:avatar-jaw", applyJawOpen);
+  }, []);
+
+  return (
+    <section
+      aria-label={ariaLabel}
+      className={`cortana-model-stage cortana-model-stage--${variant}`}
+      data-preacherman-control="avatar.status"
+      data-avatar-state={interactionState}
+      data-motion-action={defaultActionId}
+      data-scene-environment={environment}
+      tabIndex={-1}
+    >
+      <InteractiveAvatarViewport
+        sceneContent={sceneContent}
+        companionVisible={companionVisible}
+        actionId={defaultActionId}
+        assetBaseUrl={localAvatarAssetBaseUrl(modelId)}
+        onError={handleError}
+        onReady={handleReady}
+        pose="standby"
+        quality="high"
+        jawOpen={jawOpen}
+        environment={environment}
+        isolateCompanion={isolateCompanion}
+        motionSource={speechMotionRuntime}
+        motionRigBinding={modelId === "cortana" ? cortanaSpeechMotionBinding : modelId === "zima" ? zimaSpeechMotionBinding : undefined}
+        modelId={modelId}
+        cameraFraming={cameraFraming}
+        renderActive={renderActive}
+        rotationOffsetY={rotationOffsetY}
+      />
+      {companionVisible && loadState === "loading" ? (
+        <div aria-label={`Loading ${modelName}`} className="cortana-model-stage__loading" role="status">
+          <span />
+        </div>
+      ) : null}
+      {companionVisible && loadState === "error" ? (
+        <div className="cortana-model-stage__error" role="alert">
+          The local model could not be loaded.
+        </div>
+      ) : null}
+      <div aria-hidden="true" className="cortana-model-stage__ground" />
+    </section>
+  );
+}

@@ -4,11 +4,15 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": ">=22"
+    "node": ">=22.12.0"
   },
   "scripts": {
     "build": "node scripts/build.mjs",
     "dev": "npm run build && wrangler dev",
+    "preview": "node scripts/preview.mjs",
+    "browser:setup": "npm --prefix browser run setup",
+    "browser:build": "npm --prefix browser run build",
+    "browser:preview": "npm --prefix browser run preview",
     "check": "npm run build && wrangler deploy --dry-run",
     "deploy": "wrangler deploy"
   },

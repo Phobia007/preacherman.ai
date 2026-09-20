@@ -1,0 +1,116 @@
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { runInNewContext } from 'node:vm';
+import test from 'node:test';
+import ts from 'typescript';
+const source=readFileSync(new URL('../src/auth/authController.ts',import.meta.url),'utf8');
+function harness(options={}) {
+ const timers=new Map();let timerId=0;const exports={};
+ const code=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
+ runInNewContext(code,{exports,URL,URLSearchParams,Date,Set,setTimeout:fn=>{timers.set(++timerId,fn);return timerId},clearTimeout:id=>timers.delete(id)});
+ const values=options.values||new Map(),calls={opens:[],exchanges:[],show:0,signOut:[]};let receive,authEvent,user=options.user||null;
+ const missing={name:'AuthSessionMissingError',status:400};
+ const auth={
+  getUser:async()=>options.offline?{data:{user:null},error:{status:0}}:{data:{user},error:user?null:missing},
+  onAuthStateChange:fn=>{authEvent=fn;return {data:{subscription:{unsubscribe(){calls.unsubscribed=true}}}}},
+  signInWithOAuth:async config=>{calls.config=config;values.set(exports.AUTH_STORAGE_KEY+'-code-verifier','private-verifier');return {data:{url:options.badUrl||'https://gzqmjzybaosxhkfgbxaz.supabase.co/auth/v1/authorize?provider=github'},error:null}},
+  exchangeCodeForSession:async code=>{calls.exchanges.push(code);if(options.exchangeFailure)return {data:{session:null},error:{}};user={id:'test-user',email:'test@example.test',user_metadata:{full_name:'Test User'}};return {data:{session:{user}},error:null}},
+  signOut:async config=>{calls.signOut.push(config);user=null;authEvent('SIGNED_OUT');return {error:null}},
+ };
+ const storage={getItem:key=>values.get(key)||null,setItem:(key,value)=>values.set(key,value),removeItem:key=>values.delete(key)};
+ const controller=exports.createAccountController({auth,storage,desktop:options.desktop!==false,web:options.web,prepareRedirect:options.prepareRedirect,openBrowser:async url=>{calls.opens.push(url);if(options.openFailure)throw Error('failed')},listen:async fn=>{receive=fn;return()=>{calls.unlistened=true}},currentUrls:async()=>options.current||null,showAccount:()=>calls.show++});
+ return {controller,calls,values,timers,exports,storage,receive:async url=>{receive([url]);for(let i=0;i<8;i++)await Promise.resolve()},event:(e)=>authEvent(e)};
+}
+test('GitHub sign-in uses PKCE return address, opens once, verifies identity and signs out locally',async()=>{
+ const h=harness();await h.controller.start();assert.equal(h.controller.getSnapshot().status,'signed-out');
+ await Promise.all([h.controller.signIn(),h.controller.signIn()]);assert.equal(h.calls.opens.length,1);
+ assert.equal(h.calls.config.provider,'github');assert.equal(h.calls.config.options.redirectTo,'preacherman://auth/callback');assert.equal(h.calls.config.options.skipBrowserRedirect,true);
+ assert.equal(h.controller.getSnapshot().status,'waiting');
+ const url='preacherman://auth/callback?code=12345678-1234-1234-1234-123456789012';await h.receive(url);await h.receive(url);
+ assert.equal(h.calls.exchanges.length,1);assert.equal(h.calls.show,1);assert.equal(h.controller.getSnapshot().user.id,'test-user');assert.equal(h.controller.getSnapshot().status,'signed-in');
+ await h.controller.signOut();assert.equal(h.calls.signOut[0].scope,'local');assert.equal(h.controller.getSnapshot().user,null);h.controller.dispose();assert.ok(h.calls.unsubscribed&&h.calls.unlistened);assert.equal(h.timers.size,0);
+});
+test('Callback parser rejects other origins, implicit tokens, malformed and duplicate codes',()=>{
+ const h=harness();for(const url of ['https://auth/callback?code=1234567890123456','preacherman://evil/callback?code=1234567890123456','preacherman://auth/else?code=1234567890123456','preacherman://u@auth/callback?code=1234567890123456','preacherman://auth/callback#access_token=secret','preacherman://auth/callback?code=short','preacherman://auth/callback?code=1234567890123456&code=1234567890123457'])assert.equal(h.exports.parseDesktopCallback(url),null,url);
+ assert.equal(h.exports.parseDesktopCallback('preacherman://auth/callback#error=access_denied').error,'access_denied');h.controller.dispose();
+});
+test('Unsolicited and cancelled callbacks cannot establish sessions, and retry is usable',async()=>{
+ const h=harness();await h.controller.start();const url='preacherman://auth/callback?code=12345678-1234-1234-1234-123456789012';await h.receive(url);assert.equal(h.calls.exchanges.length,0);
+ await h.controller.signIn();h.values.set(h.exports.AUTH_STORAGE_KEY+'-flows-code-verifier',JSON.stringify(['abcdefgh']));h.values.set(h.exports.AUTH_STORAGE_KEY+'-flow-abcdefgh-code-verifier','private');h.controller.cancel();await h.receive(url);assert.equal(h.calls.exchanges.length,0);assert.equal(h.values.size,0);
+ await h.controller.signIn();assert.equal(h.controller.getSnapshot().status,'waiting');h.controller.dispose();
+});
+test('Interrupted app launch completes only its still-pending sign-in',async()=>{
+ const url='preacherman://auth/callback?code=12345678-1234-1234-1234-123456789012';const h=harness({current:[url]});
+ h.values.set(h.exports.AUTH_STORAGE_KEY+'.pending-until',String(Date.now()+60_000));await h.controller.start();assert.equal(h.controller.getSnapshot().status,'signed-in');assert.equal(h.calls.exchanges.length,1);h.controller.dispose();
+});
+test('Denial, browser failure, expiry and code exchange failure clear waiting state',async()=>{
+ for(const reason of ['denied','openFailure','expired','exchangeFailure','badUrl']){
+  const h=harness({[reason]:reason==='badUrl'?'https://evil.test/auth':true});await h.controller.start();await h.controller.signIn();
+  if(reason==='denied')await h.receive('preacherman://auth/callback?error=access_denied');
+  if(reason==='expired')for(const fn of [...h.timers.values()])fn();
+  if(reason==='exchangeFailure')await h.receive('preacherman://auth/callback?code=12345678-1234-1234-1234-123456789012');
+  assert.equal(h.controller.getSnapshot().status,'signed-out',reason);assert.ok(h.controller.getSnapshot().error,reason);assert.equal(h.values.size,0,reason);h.controller.dispose();
+ }
+});
+test('Restart verifies a saved session; network failure never invents a signed-in identity',async()=>{
+ const user={id:'existing-user',email:'existing@example.test',user_metadata:{}};
+ const h=harness({user});await h.controller.start();assert.equal(h.controller.getSnapshot().user.id,user.id);h.controller.dispose();
+ const failed=harness({user,offline:true});await failed.controller.start();assert.equal(failed.controller.getSnapshot().user,null);assert.ok(failed.controller.getSnapshot().error);failed.controller.dispose();
+});
+test('Browser preview does not start a desktop authorization flow',async()=>{
+ const h=harness({desktop:false});await h.controller.signIn();assert.equal(h.calls.opens.length,0);assert.match(h.controller.getSnapshot().error,/Desktop/);h.controller.dispose();
+});
+
+test('Prepared loopback redirect is used and closed on success, cancel, expiry and browser failure',async()=>{
+ for(const reason of ['success','cancel','expired','openFailure']){
+  let closed=0;const h=harness({openFailure:reason==='openFailure',prepareRedirect:async resume=>{assert.equal(resume,false);return {url:'http://127.0.0.1:43821/auth/callback?desktop_state=test',close:async()=>{closed++}}}});
+  await h.controller.signIn();assert.match(h.calls.config.options.redirectTo,/^http:\/\/127\.0\.0\.1:43821\//);
+  if(reason==='success')await h.receive('preacherman://auth/callback?code=1234567890123456');
+  if(reason==='cancel')h.controller.cancel();
+  if(reason==='expired')for(const fn of [...h.timers.values()])fn();
+  assert.equal(closed,1,reason);h.controller.dispose();assert.equal(closed,1);
+ }
+});
+test('Cancelling while the return listener starts cannot open a browser or orphan the listener',async()=>{
+ let ready,closed=0;const h=harness({prepareRedirect:()=>new Promise(resolve=>ready=resolve)});
+ await h.controller.start();const attempt=h.controller.signIn();for(let i=0;i<16&&!ready;i++)await Promise.resolve();assert.equal(typeof ready,"function");h.controller.cancel();
+ ready({url:'http://127.0.0.1:43821/auth/callback',close:async()=>closed++});await attempt;
+ assert.equal(h.calls.opens.length,0);assert.equal(closed,1);assert.equal(h.controller.getSnapshot().status,'signed-out');h.controller.dispose();
+});
+test('A pending restart resumes its listener and disposal releases it without deleting the pending attempt',async()=>{
+ let closed=0,resumed=false;const h=harness({prepareRedirect:async resume=>{resumed=resume;return {url:'http://127.0.0.1:43821/auth/callback',close:async()=>closed++}}});
+ h.values.set(h.exports.AUTH_STORAGE_KEY+'.pending-until',String(Date.now()+60_000));await h.controller.start();assert.ok(resumed);assert.equal(h.controller.getSnapshot().status,'waiting');h.controller.dispose();assert.equal(closed,1);assert.ok(h.values.has(h.exports.AUTH_STORAGE_KEY+'.pending-until'));
+});
+
+
+test('Web GitHub sign-in returns to this website and completes once after a reload',async()=>{
+ let cleared=0;
+ const web={redirectUrl:'https://web.example.test/',currentUrl:()=> 'https://web.example.test/',clearCallback:()=>cleared++};
+ const first=harness({desktop:false,web});await first.controller.signIn();
+ assert.equal(first.calls.config.options.redirectTo,web.redirectUrl);assert.equal(first.calls.opens.length,1);
+ assert.equal(first.controller.getSnapshot().status,'waiting');first.controller.dispose();
+ const returned=harness({desktop:false,values:first.values,web:{...web,currentUrl:()=>web.redirectUrl+'?code=1234567890123456'}});
+ await returned.controller.start();await returned.controller.start();
+ assert.equal(cleared,1);assert.deepEqual(returned.calls.exchanges,['1234567890123456']);
+ assert.equal(returned.controller.getSnapshot().status,'signed-in');assert.equal(returned.calls.show,1);
+ await returned.controller.signOut();assert.equal(returned.calls.signOut[0].scope,'local');returned.controller.dispose();
+});
+
+test('Web callback validates exact origin and path and rejects implicit or duplicate credentials',()=>{
+ const h=harness();const redirect='https://web.example.test/';
+ for(const raw of ['https://evil.test/?code=1234567890123456','https://web.example.test/else?code=1234567890123456','https://web.example.test/#access_token=secret','https://web.example.test/?code=1234567890123456&code=2345678901234567','https://u@web.example.test/?code=1234567890123456'])assert.equal(h.exports.parseWebCallback(raw,redirect),null,raw);
+ assert.equal(h.exports.parseWebCallback(redirect+'?code=1234567890123456',redirect).code,'1234567890123456');h.controller.dispose();
+});
+
+test('Web callback without a pending attempt cannot sign in; saved sessions still restore',async()=>{
+ const web={redirectUrl:'https://web.example.test/',currentUrl:()=> 'https://web.example.test/?code=1234567890123456',clearCallback:()=>{}};
+ const h=harness({desktop:false,web});await h.controller.start();assert.equal(h.calls.exchanges.length,0);assert.equal(h.controller.getSnapshot().status,'signed-out');h.controller.dispose();
+ const user={id:'member-1',user_metadata:{}};const saved=harness({desktop:false,web:{...web,currentUrl:()=>web.redirectUrl},user});await saved.controller.start();assert.equal(saved.controller.getSnapshot().user.id,'member-1');saved.controller.dispose();
+});
+
+test('Cancelled web authorization clears its pending state and allows a new attempt',async()=>{
+ const web={redirectUrl:'https://web.example.test/',currentUrl:()=> 'https://web.example.test/?error=access_denied',clearCallback:()=>{}};
+ const h=harness({desktop:false,web});h.values.set(h.exports.AUTH_STORAGE_KEY+'.pending-until',String(Date.now()+60000));
+ await h.controller.start();assert.match(h.controller.getSnapshot().error,/cancelled/);assert.equal(h.values.size,0);
+ await h.controller.signIn();assert.equal(h.controller.getSnapshot().status,'waiting');h.controller.cancel();assert.equal(h.values.size,0);h.controller.dispose();
+});

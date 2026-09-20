@@ -1,0 +1,133 @@
+import type { Locale } from "./preferences";
+import { localServiceUrl } from "./serviceConfig";
+
+export interface LedgerMessage { readonly role: "user" | "assistant"; readonly text: string; }
+export interface ConversationLedgerEntry { readonly id: string; readonly locale: Locale; readonly updatedAt: string; readonly messages: readonly LedgerMessage[]; }
+export interface TaskLedgerEntry {
+  readonly taskId: string;
+  readonly objective: string;
+  readonly pluginId?: string;
+  readonly providerPluginId?: string;
+  readonly status: "queued" | "running" | "waiting_for_input" | "waiting_for_approval" | "succeeded" | "failed" | "cancelled";
+  readonly updatedAt: string;
+  readonly execution?: {
+    readonly kind?: string;
+    readonly adapter?: string;
+    readonly workflowId?: string;
+    readonly workflowRevision?: number;
+    readonly canonicalHash?: string;
+  };
+  readonly attempts?: readonly {
+    readonly attempt: number;
+    readonly provider: "local" | "preacherman-execution";
+    readonly status: string;
+    readonly externalRunId?: string;
+    readonly startedAt?: string;
+    readonly completedAt?: string;
+  }[];
+  readonly pendingApproval?: { readonly approvalId: string; readonly proposalHash: string; readonly title: string; readonly description: string; readonly requestedAt?: string } | null;
+  readonly approvalHistory?: readonly { readonly approvalId: string; readonly proposalHash: string; readonly title: string; readonly status: string; readonly requestedAt?: string; readonly actor?: string; readonly decidedAt?: string }[];
+  readonly events: readonly {
+    readonly type?: string;
+    readonly stage: string;
+    readonly message: string;
+    readonly at?: string;
+    readonly sourceId?: string;
+    readonly evidence?: {
+      readonly provider?: string;
+      readonly externalRunId?: string;
+      readonly sourceEvent?: string;
+      readonly sourceIndex?: number;
+      readonly errorCode?: string;
+    };
+  }[];
+  readonly toolCall?: {
+    readonly name: string;
+    readonly qualifiedName?: string;
+    readonly parameterSummary?: {
+      readonly keys: readonly string[];
+      readonly byteLength: number;
+    };
+    readonly structuredResult?: unknown;
+  };
+  readonly artifact: {
+    readonly artifactId?: string;
+    readonly name: string;
+    readonly path: string;
+    readonly contentPath?: string;
+    readonly mediaType?: string;
+    readonly status?: string;
+    readonly primary?: boolean;
+    readonly content?: unknown;
+  } | null;
+  readonly artifacts?: readonly {
+    readonly artifactId?: string;
+    readonly name: string;
+    readonly path?: string;
+    readonly contentPath?: string;
+    readonly mediaType?: string;
+    readonly status?: string;
+    readonly primary?: boolean;
+    readonly content?: unknown;
+  }[];
+}
+
+const LEDGER_KEY = "preacherman.conversation-ledger.v1";
+const CURRENT_ID_KEY = "preacherman.current-conversation-id";
+
+function readEntries(): ConversationLedgerEntry[] {
+  try { return JSON.parse(localStorage.getItem(LEDGER_KEY) || "[]") as ConversationLedgerEntry[]; } catch { return []; }
+}
+
+function currentId(): string {
+  const stored = localStorage.getItem(CURRENT_ID_KEY);
+  if (stored) return stored;
+  const id = `conversation:${crypto.randomUUID()}`;
+  localStorage.setItem(CURRENT_ID_KEY, id);
+  return id;
+}
+
+/** Starts a fresh local conversation without deleting the saved conversation history. */
+export function beginNewConversation(): string {
+  const id = `conversation:${crypto.randomUUID()}`;
+  localStorage.setItem(CURRENT_ID_KEY, id);
+  return id;
+}
+
+export function saveConversation(locale: Locale, messages: readonly LedgerMessage[]): void {
+  // A blank draft should not overwrite the previous conversation or appear in history.
+  if (messages.length === 0) return;
+  const id = currentId();
+  const next: ConversationLedgerEntry = { id, locale, updatedAt: new Date().toISOString(), messages: messages.slice(-20) };
+  const entries = readEntries().filter((entry) => entry.id !== id);
+  localStorage.setItem(LEDGER_KEY, JSON.stringify([next, ...entries].slice(0, 10)));
+  void fetch(localServiceUrl(`/api/conversations/${encodeURIComponent(id)}`), {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(next),
+  }).catch(() => undefined);
+}
+
+export function readRecentConversations(): readonly ConversationLedgerEntry[] { return readEntries(); }
+
+export async function loadRecentConversations(): Promise<readonly ConversationLedgerEntry[]> {
+  try {
+    const response = await fetch(localServiceUrl("/api/conversations/recent"));
+    if (!response.ok) throw new Error("Local service unavailable");
+    const payload = await response.json() as { entries?: ConversationLedgerEntry[] };
+    return Array.isArray(payload.entries) ? payload.entries : readEntries();
+  } catch {
+    return readEntries();
+  }
+}
+
+export async function loadRecentTasks(): Promise<readonly TaskLedgerEntry[]> {
+  try {
+    const response = await fetch(localServiceUrl("/api/tasks?limit=10"));
+    if (!response.ok) return [];
+    const payload = await response.json() as { tasks?: TaskLedgerEntry[] };
+    return Array.isArray(payload.tasks) ? payload.tasks : [];
+  } catch {
+    return [];
+  }
+}

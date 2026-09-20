@@ -1,0 +1,75 @@
+.market-surface {
+  --market-content-top: 100px;
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  color: var(--demo-theme-market-text);
+}
+
+.market-surface__frame {
+  position: absolute;
+  top: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: transparent;
+}
+
+/* Content scrolls behind this fixed glass header; the signature stays sharp. */
+.market-surface[data-page="intro"]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  height: var(--market-content-top);
+  box-sizing: border-box;
+  background: var(--demo-theme-market-header-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  right: 0;
+  left: 0;
+  z-index: 1;
+  border-bottom: 1px solid var(--demo-theme-market-border);
+  pointer-events: none;
+}
+
+/* The lens supplies the current page pixels until its closing frame reaches zero. */
+.market-surface[data-lens-active="true"] .market-surface__frame { opacity: 0; }
+
+.market-surface__status {
+  position: absolute;
+  right: 36px;
+  bottom: 24px;
+  color: var(--demo-theme-market-loading);
+  font: 300 18px/1.4 var(--demo-font-primary);
+}
+
+.market-surface[data-status="error"] .market-surface__status {
+  padding: 20px;
+  background: var(--demo-theme-market-control);
+  color: var(--demo-theme-market-error);
+}
+
+.market-surface__status button {
+  padding: 10px 20px;
+  border: 1px solid var(--demo-theme-market-border);
+  background: var(--demo-theme-market-control);
+  color: var(--demo-theme-market-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.market-surface__status button:hover {
+  background: var(--demo-theme-market-hover);
+}
+
+.market-surface__status button:focus-visible {
+  outline: 2px solid var(--demo-theme-market-focus);
+  outline-offset: 4px;
+}
+
+/* The logo finishes before any product column enters the viewport. */
+.market-surface[data-logo-ready="false"] .market-profile__toggle { opacity: 0; }
+.market-surface[data-entrance="logo"] .market-surface__frame { visibility: hidden; }
+.market-surface[data-entrance="logo"]::before { opacity: 0; }
+.market-surface .market-profile__toggle:disabled { cursor: default; }
