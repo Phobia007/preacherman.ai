@@ -70,8 +70,8 @@ html[data-profile-webgl="true"] .brand-fallback-mark{display:none}
    as section spacing so the next dark text reaches the pale canvas on time. */
 #insights-proactively-delivered { padding-top: 48svh; }
 header [data-component-name="shopify-com"],
-header [data-section-name="search"] button,
-header [data-section-name="search"] input,
+header [data-section-name="language"] button,
+header [data-section-name="language"] input,
 #sidekick > div > div:first-child h2,
 #sidekick > div > div:first-child .rich-text,
 #insights-proactively-delivered h3,
@@ -81,7 +81,7 @@ header [data-section-name="search"] input,
   font-family: "Brand Diatype", sans-serif;
 }
 header [data-component-name="shopify-com"],
-header [data-section-name="search"] > button {
+header [data-section-name="language"] > button {
   font-size: 20px;
   font-weight: 350;
   line-height: 1;
@@ -97,20 +97,20 @@ header { --brand-nav-ink: var(--color-light, #f7f7ee); }
 html[data-nav-theme="light"] header { --brand-nav-ink: var(--color-dark, #292919); }
 html header [data-component-name="start-free-trial"],
 html header [data-component-name="shopify-com"],
-html header [data-section-name="search"] > button {
+html header [data-section-name="language"] > button {
   color: var(--brand-nav-ink) !important;
   background: transparent !important;
   box-shadow: none !important;
 }
-html header [data-section-name="search"] > button .icon {
+html header [data-section-name="language"] > button .icon {
   color: inherit !important;
 }
 header [data-component-name="start-free-trial"]:hover,
 header [data-component-name="shopify-com"]:hover,
-header [data-section-name="search"] > button:hover { text-decoration: underline; text-underline-offset: 5px; }
+header [data-section-name="language"] > button:hover { text-decoration: underline; text-underline-offset: 5px; }
 header [data-component-name="start-free-trial"]:focus-visible,
 header [data-component-name="shopify-com"]:focus-visible,
-header [data-section-name="search"] > button:focus-visible {
+header [data-section-name="language"] > button:focus-visible {
   outline: 1px solid currentColor;
   outline-offset: 4px;
 }
@@ -151,13 +151,13 @@ header [data-section-name="search"] > button:focus-visible {
 }
 @media (max-width: 939px) {
   #insights-proactively-delivered { padding-top: 32svh; }
-  header [data-section-name="search"] > button { font-size: 18px; }
+  header [data-section-name="language"] > button { font-size: 18px; }
 }
 
 /* A single size and baseline for all three navigation text controls. */
 header [data-component-name="shopify-com"],
 header [data-component-name="start-free-trial"],
-header [data-section-name="search"] > button {
+header [data-section-name="language"] > button {
   font-family: "Brand Diatype", sans-serif;
   font-size: 24px;
   font-weight: 350;
@@ -172,12 +172,12 @@ header [data-section-name="search"] > button {
 @media (min-width: 940px) {
   header [data-component-name="shopify-com"],
   header [data-component-name="start-free-trial"],
-  header [data-section-name="search"] > button { translate: 0 5px; }
+  header [data-section-name="language"] > button { translate: 0 5px; }
 }
 @media (max-width: 939px) {
   header [data-component-name="shopify-com"],
   header [data-component-name="start-free-trial"],
-  header [data-section-name="search"] > button { font-size: 20px; line-height: 24px; }
+  header [data-section-name="language"] > button { font-size: 20px; line-height: 24px; }
 }
 #sidekick-generates-apps .sidekick-card-text,
 #sidekick-generates-apps .vessel-try-label,
@@ -231,7 +231,7 @@ html[data-vessel-video="true"] header { --brand-nav-ink: var(--fg); }
 @layer base {
 html[data-vessel-video="true"][data-nav-theme] header [data-component-name="start-free-trial"],
 html[data-vessel-video="true"][data-nav-theme] header [data-component-name="shopify-com"],
-html[data-vessel-video="true"][data-nav-theme] header [data-section-name="search"] > button,
+html[data-vessel-video="true"][data-nav-theme] header [data-section-name="language"] > button,
 html[data-vessel-video="true"] [data-section-name="side-nav"] .sidebar-link span,
 html[data-vessel-video="true"] [data-section-name="side-nav"] .sidebar-link::after,
 html[data-vessel-video="true"] [data-section-name="side-nav"] .terms-of-service,
@@ -272,7 +272,7 @@ html[data-online-continuity="true"] header { --brand-nav-ink: var(--fg); }
 @layer base {
   html[data-online-continuity="true"][data-nav-theme] header [data-component-name="start-free-trial"],
   html[data-online-continuity="true"][data-nav-theme] header [data-component-name="shopify-com"],
-  html[data-online-continuity="true"][data-nav-theme] header [data-section-name="search"] > button,
+  html[data-online-continuity="true"][data-nav-theme] header [data-section-name="language"] > button,
   html[data-online-continuity="true"] [data-section-name="side-nav"] .sidebar-link span,
   html[data-online-continuity="true"] [data-section-name="side-nav"] .sidebar-link::after,
   html[data-online-continuity="true"] [data-section-name="side-nav"] .terms-of-service,
@@ -380,4 +380,139 @@ body > .continuity-marquee[data-visible="true"] {
 }
 @media (prefers-reduced-motion: reduce) {
   body > .continuity-marquee { transition: none; }
+}
+
+/* New English copy uses the same brand face as the Vessel page and navigation. */
+#tedious-tasks-simplified h3,
+#agentic h2,
+#card-heading-shopify-agentic-storefronts,
+#online h2 {
+  font-family: "Brand Diatype", sans-serif;
+  font-weight: 350;
+}
+#card-heading-shopify-agentic-storefronts {
+  font-weight: 500;
+}
+#sidekick-skills > div:first-child .rich-text,
+#agentic .rich-text.narrative-1,
+#shopify-agentic-storefronts .rich-text,
+#online .rich-text.narrative-1 {
+  font-family: "Brand Diatype", sans-serif;
+  font-weight: 350;
+}
+/* Remove ornamental initials from the two narrative blocks. */
+#agentic .rich-text.drop-cap,
+#online .rich-text.drop-cap {
+  text-indent: 0;
+  transform: none;
+}
+#agentic .rich-text.drop-cap::first-letter,
+#agentic .rich-text.drop-cap p::first-letter,
+#online .rich-text.drop-cap::first-letter,
+#online .rich-text.drop-cap p::first-letter {
+  font: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  float: none;
+  margin: 0;
+}
+
+/* Language navigation shares the brand font and baseline of the other links. */
+.brand-language { position: relative; width: max-content; pointer-events: auto; }
+header .brand-language__trigger {
+  display: inline-flex;
+  gap: 10px;
+  border: 0;
+  border-radius: 0;
+  padding-left: 0;
+  padding-right: 0;
+  cursor: pointer;
+}
+.brand-language__chevron {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  flex-shrink: 0;
+}
+.brand-language__menu {
+  position: absolute;
+  top: calc(100% + 14px);
+  left: 0;
+  z-index: 30;
+  width: 232px;
+  max-width: calc(100vw - 24px);
+  padding: 6px;
+  border: 1px solid rgb(41 41 25 / 14%);
+  border-radius: 6px;
+  background: var(--fg, #f7f7ee);
+  color: var(--color-dark, #292919);
+  box-shadow: 0 8px 28px rgb(0 0 0 / 18%);
+}
+.brand-language__menu[hidden] { display: none; }
+header .brand-language__option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  min-height: 42px;
+  padding: 9px 12px;
+  border: 0;
+  border-radius: 3px;
+  background: transparent;
+  color: inherit;
+  font: 350 18px/24px "Brand Diatype", sans-serif;
+  letter-spacing: 0;
+  text-align: left;
+  cursor: pointer;
+}
+header .brand-language__option:not(:disabled):hover,
+header .brand-language__option:focus-visible { background: rgb(41 41 25 / 8%); }
+header .brand-language__option:focus-visible { outline: 1px solid currentColor; outline-offset: -1px; }
+header .brand-language__option:disabled { opacity: .5; cursor: default; }
+.brand-language__check { font-size: 16px; }
+.brand-language__soon { font-size: 12px; }
+#mobile-menu .brand-language { margin: 0 20px; }
+#mobile-menu .brand-language__menu { position: static; margin-top: 10px; }
+
+/* Market headings sit at opposite ends with equal outer page insets. */
+.market-split-copy {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: clamp(24px, 6vw, 120px);
+  width: 100%;
+  align-items: start;
+}
+.market-split-copy h3,
+#card-heading-shopify-simgym-app,
+#card-heading-tinker-app {
+  font-family: "Brand Diatype", sans-serif;
+  font-weight: 500;
+}
+.market-split-copy__left { text-align: left; }
+.market-split-copy__right { text-align: right; }
+.market-split-copy > :not(h3) { grid-column: 1 / -1; justify-self: start; }
+#shopify-simgym-app .rich-text,
+#tinker-app .rich-text {
+  font-family: "Brand Diatype", sans-serif;
+  font-weight: 350;
+  line-height: 1.12;
+  letter-spacing: -.025em;
+}
+#card-heading-tinker-app { white-space: pre-line; }
+@layer base {
+  /* Override the layered headline-3! utility without changing its size. */
+  #card-heading-tinker-app {
+    font-family: "Brand Diatype", sans-serif !important;
+    font-weight: 500 !important;
+  }
+}
+@media (min-width: 940px) {
+  /* The existing heading begins at 20% of the page. End at 80%. */
+  .market-split-copy { width: 60cqw; }
+  #tinker-app > div:first-child { grid-column: 1 / -1; width: 60cqw; }
 }

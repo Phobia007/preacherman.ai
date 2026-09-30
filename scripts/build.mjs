@@ -1,4 +1,5 @@
-import { cp, mkdir, rm, access, readFile, writeFile } from 'node:fs/promises';
+import { cp, mkdir, rm, access, readFile, writeFile, readdir } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
@@ -26,4 +27,21 @@ for (const relative of ['index.html', 'shopify-winter2026.html']) {
 const navPath = path.join(output, 'assets/runtime/GlobalNavigationContainer-DD0GcKXP.js');
 const nav = await readFile(navPath, 'utf8');
 await writeFile(navPath, nav.replace('href:"http://localhost:5173/",target:"_self",children:"Try It"', () => `href:${JSON.stringify(destination.href)},target:"_self",children:"Try It"`));
+
+// The imported site's bundle filenames keep their original hashes even when
+// edited locally. Version the entire module graph so cached dependencies cannot
+// replace the current HTML with an older navigation component after hydration.
+const codeFiles = (await readdir(output, { recursive: true }))
+  .filter(file => /\.(?:html|js|css)$/.test(file))
+  .sort();
+const sources = await Promise.all(codeFiles.map(async file => [file, await readFile(path.join(output, file), 'utf8')]));
+const hash = createHash('sha256');
+for (const [file, sourceText] of sources) hash.update(file).update('\0').update(sourceText).update('\0');
+const revision = hash.digest('hex').slice(0, 12);
+const localCodeUrl = /(?<=["'`])(?:\.{1,2}\/|\/?assets\/)[^"'`\s<>\\]*?\.(?:js|css)(?:\?[^"'`\s<>\\]*)?(?=["'`\\])/g;
+for (const [file, sourceText] of sources) {
+  const versioned = sourceText.replace(localCodeUrl, url => `${url}${url.includes('?') ? '&' : '?'}preacherman=${revision}`);
+  if (versioned !== sourceText) await writeFile(path.join(output, file), versioned);
+}
 console.log(`Built the presentation website into dist/. Try It → ${destination.href}`);
+console.log(`Browser asset revision: ${revision}`);

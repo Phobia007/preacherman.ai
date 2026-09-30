@@ -7,6 +7,9 @@
     "node": ">=22.12.0"
   },
   "scripts": {
+    "open": "node scripts/open-local.mjs",
+    "test:launcher": "node --test scripts/tests/native-node.test.mjs scripts/tests/open-target.test.mjs",
+    "local": "node scripts/local.mjs",
     "build": "node scripts/build.mjs",
     "dev": "npm run build && wrangler dev",
     "preview": "node scripts/preview.mjs",

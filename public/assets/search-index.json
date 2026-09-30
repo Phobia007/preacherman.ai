@@ -72,24 +72,24 @@
     "isCurrent": true
   },
   {
-    "title": "It has its own memory, but it can also become a more suitable, more 'you' version of agents.",
-    "search": "It has its own memory, but it can also become a more suitable, more 'you' version of agents. Over long-term use, even though it relies on external APIs and model capabilities, it will accumulate your data, assets, and memories, making it understand you better and become another part of your virtual self.",
+    "title": "Work beyond the conversation.",
+    "search": "Work beyond the conversation. A task can use agents, tools, files and services beyond Preacherman — while the Vessel remains your point of control.",
     "href": "#tedious-tasks-simplified",
     "handle": "card-heading-sidekick-skills-14",
     "vendor": "winter2026",
     "isCurrent": true
   },
   {
-    "title": "AI 商务",
-    "search": "AI 商务使用内置工具，将商品同步到各个 AI 平台，直接在 AI 对话中销售。",
+    "title": "Tell it what you want.",
+    "search": "Tell it what you want. It turns intent into a task, chooses the tools it needs, and starts working.",
     "href": "#agentic",
     "handle": "agentic-24",
     "vendor": "winter2026",
     "isCurrent": true
   },
   {
-    "title": "Shopify Agentic Storefronts",
-    "search": "Shopify Agentic Storefronts管理品牌在数百万购物者使用的 AI 对话中的展示方式。商品可直接出现在 ChatGPT、Copilot 和 Perplexity 中，更多渠道即将上线。阅读帮助文档",
+    "title": "Conversation becomes action.",
+    "search": "Conversation becomes action. One mind to speak. Another to act.",
     "href": "#card-heading-shopify-agentic-storefronts",
     "handle": "card-heading-shopify-agentic-storefronts-25",
     "vendor": "winter2026",
@@ -104,8 +104,8 @@
     "isCurrent": true
   },
   {
-    "title": "在线商店",
-    "search": "在线商店通过 A/B 测试与模拟购物行为的 AI 工具，验证店铺调整效果。",
+    "title": "Market",
+    "search": "Market Everything that changes how a Vessel exists or what it can do.",
     "href": "#online",
     "handle": "online-27",
     "vendor": "winter2026",

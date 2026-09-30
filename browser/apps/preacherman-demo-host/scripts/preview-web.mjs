@@ -4,9 +4,11 @@ import { fileURLToPath } from "node:url";
 import { resolve } from "node:path";
 const app = fileURLToPath(new URL("../", import.meta.url));
 const root = resolve(app, "../..");
+const port = Number(process.env.PREACHERMAN_WEB_PORT || 5173);
+if (!Number.isInteger(port) || port < 1 || port > 65535) throw new Error("PREACHERMAN_WEB_PORT must be a valid TCP port.");
 const service = createPreachermanServer({ env: {
   ...process.env, PREACHERMAN_DATA_DIR: resolve(root, ".runtime-tmp/browser-preview"),
-  PREACHERMAN_SERVICE_PORT: "8791", PREACHERMAN_PREVIEW_ORIGINS: "http://localhost:5173,http://127.0.0.1:5173",
+  PREACHERMAN_SERVICE_PORT: "8791", PREACHERMAN_PREVIEW_ORIGINS: `http://localhost:${port},http://127.0.0.1:${port}`,
   PREACHERMAN_EXECUTION_ENABLED: "false",
 } });
 let site, closing = false;
@@ -21,7 +23,7 @@ async function close() {
 try {
   await service.listen();
   site = await preview({ configFile: false, root: app, build: { outDir: resolve(root, "web-dist") },
-    preview: { host: "localhost", port: 5173, strictPort: true,
+    preview: { host: "127.0.0.1", port, strictPort: true,
       proxy: { "/api": { target: "http://127.0.0.1:8791", ws: true } } },
     plugins: [{ name: "preacherman-browser-preview", configurePreviewServer(server) {
       server.middlewares.use((request, response, next) => {
@@ -31,6 +33,6 @@ try {
       });
     } }],
   });
-  console.log("Preacherman Web: http://localhost:5173 (isolated local API: 8791)");
+  console.log(`Preacherman Web: http://127.0.0.1:${port} (isolated local API: 8791)`);
   process.on("SIGINT", () => { void close(); }); process.on("SIGTERM", () => { void close(); });
 } catch (error) { console.error(error); await close(); process.exitCode = 1; }
